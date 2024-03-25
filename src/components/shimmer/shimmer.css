@@ -1,0 +1,10 @@
+.shimmer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.shimmer-card {
+    width: 200px;
+    height: 400px;
+    background-color: rgb(192, 188, 188);
+}
