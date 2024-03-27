@@ -7,12 +7,23 @@ export const RestCard = (props) => {
     // console.log(props)
     return (
         <div className='card'>
-            <img src={ CARD_URL + cloudinaryImageId} />
+            <img src={CARD_URL + cloudinaryImageId} />
             <h3>{name}</h3>
             <h4>{cuisines.join(',')}</h4>
             <h4>{avgRating}</h4>
         </div>
     )
+}
+
+export const WithPromotedLabel = (RestCard) => {
+    return (props) => {
+        return (
+            <>
+                <label>Promoted</label>
+                <RestCard {...props}/>
+            </>
+        )
+    }
 }
 
 export default RestCard;

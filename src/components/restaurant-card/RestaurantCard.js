@@ -8,11 +8,22 @@ const RestaurantCard = () => {
     const { restid } = useParams();
 
     const resInfo = useRestaurantMenu(restid);
-    
+
     if (resInfo === null) return <Shimmer />
 
     const { name, avgRatingString, areaName, cuisines } = resInfo?.cards[2]?.card?.card?.info;
     const { itemCards } = resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
+    // const category = resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+    // console.log('Categories', category)
+    // const categoryListing = category.filter((type) => {
+    //     return type.card?.card?.["@type"] === 'type.googleapis.com/swiggy.presentation.food.v2.ItemCategory'
+    // })
+    // console.log('Category Listing', categoryListing)
+    const category = resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((category) =>
+        category?.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    )
+    console.log('Categories', category);
+
     return (
         <div className="rset-card">
             <h2>{name} - {avgRatingString}</h2>
@@ -55,13 +66,13 @@ export default RestaurantCard;
 // --------------------------------------><------------------------------------------
 
 //---------------------------->To fetch data from api. Now it has a custom hook<------------
- // useEffect(() => {
-    //     fetchMenu();
-    // }, [])
+// useEffect(() => {
+//     fetchMenu();
+// }, [])
 
-    // const fetchMenu = async () => {
-    //     const data = await fetch(MENU_API + restid);
-    //     const json = await data.json();
-    //     setResInfo(json.data)
-    // }
+// const fetchMenu = async () => {
+//     const data = await fetch(MENU_API + restid);
+//     const json = await data.json();
+//     setResInfo(json.data)
+// }
 //---------------------------------><--------------------------------------------

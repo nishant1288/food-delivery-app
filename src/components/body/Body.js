@@ -1,6 +1,6 @@
 import "./body.css";
 import { useEffect, useState } from "react";
-import { RestCard } from '../rest-card/RestCard';
+import  RestCard, { WithPromotedLabel } from '../rest-card/RestCard';
 import Shimmer from '../shimmer/Shimmer';
 import { Link } from "react-router-dom";
 
@@ -65,13 +65,17 @@ const Body = () => {
     const [filterCards, setFilterCards] = useState([]);
     const [searchValue, setSearchValue] = useState('')
 
+    const RestaurantCardPromoted = WithPromotedLabel(RestCard)
+
+    console.log(cards)
+
     useEffect(() => {
         fetchData();
     }, [])
 
-    useEffect(() => {
-        console.log('Cards', cards)
-    }, [cards]);
+    // useEffect(() => {
+    //     console.log('Cards', cards)
+    // }, [cards]);
 
     const onlineStatus = useOnlineStatus();
 
@@ -118,7 +122,7 @@ const Body = () => {
                 {
                     filterCards.map(data =>
                         <Link key={data.info.id} to={'/restaurant/' + data.info.id}>
-                            <RestCard rescard={data} />
+                            { data.info.promoted ? <RestaurantCardPromoted rescard={data}/> :  <RestCard rescard={data} /> }
                         </Link>)
                 }
             </div>
